@@ -446,7 +446,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
    
   <ul>
   <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link active" data-scroll-target="#linear-algebra">2.1 Linear Algebra</a></li>
-  <li><a href="#basic-concepts" id="toc-basic-concepts" class="nav-link" data-scroll-target="#basic-concepts">2.1.1 Basic Concepts</a></li>
+  <li><a href="#basic-concepts" id="toc-basic-concepts" class="nav-link" data-scroll-target="#basic-concepts">2.1.1 Basic Concepts</a>
+  <ul class="collapse">
+  <li><a href="#determinant" id="toc-determinant" class="nav-link" data-scroll-target="#determinant">Determinant</a></li>
+  <li><a href="#hadamard-product" id="toc-hadamard-product" class="nav-link" data-scroll-target="#hadamard-product">Hadamard product</a></li>
+  </ul></li>
+  <li><a href="#eigendecomposition" id="toc-eigendecomposition" class="nav-link" data-scroll-target="#eigendecomposition">2.1.2 Eigendecomposition</a></li>
+  <li><a href="#singular-value-decomposition" id="toc-singular-value-decomposition" class="nav-link" data-scroll-target="#singular-value-decomposition">2.1.3 Singular Value Decomposition</a></li>
   </ul>
 </nav>
     </div>
@@ -511,9 +517,49 @@ a_{m1} &amp; a_{m2} &amp; \dots &amp; a_{mn}
          [ 0,  4]]))</code></pre>
 </div>
 </div>
-<p><code>-</code> 행렬식 (determinant)</p>
+<section id="determinant" class="level3">
+<h3 class="anchored" data-anchor-id="determinant">Determinant</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="2023-03-13-chap2_files/figure-html/4630dc9a-06a5-434f-aa88-13c499fc8194-1-e8e2e84d-7d4d-4e79-9317-c05baaaec985.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">image.png</figcaption><p></p>
+</figure>
+</div>
 <p><span class="math inline">\(n\times n\)</span> 정사각행렬 <span class="math inline">\(\bf{A}\)</span> 에 대해 행렬식(|<span class="math inline">\(\bf{A}\)</span>|) 은 다음과 같이 정의한다.</p>
-<p><span class="math display">\[ \text{det} (\bf{A}) = \sum_{k_1 k_2 \dots k_n} (-1)^{\tau (k_1 k_2 \dots k_n)}a_1\]</span></p>
+<p><span class="math display">\[ \text{det} (\bf{A}) = \sum_{k_1 k_2 \dots k_n} (-1)^{\tau (k_1 k_2 \dots k_n)}a_{1 k_1}a_{2 k_2}\dots a_{n k_n}\]</span></p>
+<p>where <span class="math inline">\(k_1k_2\dots k_n\)</span> is a permutation of <span class="math inline">\(1,2,\dots,n\)</span> and <span class="math inline">\(\tau(k_1 k_2 \dots k_n)\)</span> is the <strong>inversion number</strong> of the permutation <span class="math inline">\(k_1 k_2 \dots k_n\)</span>, which is the number of <strong>inverted sequence</strong> in the permutation.</p>
+<p>If matrix <span class="math inline">\(\bf{A}\)</span> is a square matrix, which means that <span class="math inline">\(m = n\)</span>, the <strong>inverse matrix</strong> of <span class="math inline">\(\bf{A}\)</span> (denoted as <span class="math inline">\(\bf{A}^{-1}\)</span>) satisfies that as A</p>
+<p><span class="math display">\[\bf{A}^{-1} \bf{A} = \bf{I}\]</span></p>
+<p>where <span class="math inline">\(\bf{I}\)</span> is the <span class="math inline">\(n\times n\)</span> identity matrix. <span class="math inline">\(\bf{A}^{-1}\)</span> exists if and only if <span class="math inline">\(|\bf{A}|\neq 0\)</span></p>
+<p>The <strong>transpose</strong> of matrix <span class="math inline">\(\bf{A}\)</span> is represented as <span class="math inline">\(\bf{A}^\top\)</span>, where</p>
+<p><span class="math display">\[\bf{A}_{ij}^\top = \bf{A}_{ji}\]</span></p>
+</section>
+<section id="hadamard-product" class="level3">
+<h3 class="anchored" data-anchor-id="hadamard-product">Hadamard product</h3>
+<p>행렬 간의 곱으로 자주 사용되는 방법은 <strong>하다마드 곱(Hadamard product)</strong> 이다.</p>
+<p>두 행렬 <span class="math inline">\(\bf{A} \in \mathbb{R}^{m\times n}, \bf{B} \in \mathbb{R}^{m\times n}\)</span> 의 하다마드 곱은</p>
+<p><span class="math display">\[\bf{C}_{ij} = \bf{A}_{ij} \bf{B}_{ij}\]</span></p>
+<p>인 행렬 <span class="math inline">\(\bf{C} \in \mathbb{R}^{m\times n}\)</span> 이다.</p>
+<p><code>-</code> 텐서(tensor): 임의의 차원을 갖는 행렬을 말한다. 대부분의 행렬 연산은 텐서에도 적용할 수 있다.</p>
+</section>
+</section>
+<section id="eigendecomposition" class="level2">
+<h2 class="anchored" data-anchor-id="eigendecomposition">2.1.2 Eigendecomposition</h2>
+<p><span class="math inline">\(\bf{A}\)</span> 를 <span class="math inline">\(\mathbb{R}^{n \times n}\)</span>에 속한 행렬이라고 하자.</p>
+<p><span class="math display">\[\bf{A}\bf{v} = \lambda \bf{v}\]</span></p>
+<p>이 때 스칼라 <span class="math inline">\(\lambda\)</span>를 고유벡터 <span class="math inline">\(\bf{v}\)</span>에 대응되는 행렬 <span class="math inline">\(\bf{A}\)</span>의 고윳값(eigenvalue)이라고 부른다. 고유벡터 <span class="math inline">\(\{\bf{v}_1, \bf{v}_2, \bf{v}_3, \dots, \bf{v}_n \}\)</span> 이 행렬<span class="math inline">\(\bf{A}\)</span>의 일차독립인 고유벡터이고 <span class="math inline">\(\{\lambda_1, \lambda_2,\dots, \lambda_n\}\)</span>이 대응되는 고윳값일 때 다음이 성립한다.</p>
+<p><span class="math display">\[\bf{A} \begin{bmatrix} \bf{v}_1 &amp; \bf{v}_2 &amp; \dots &amp; \bf{v}_n  \end{bmatrix} = \begin{bmatrix} \bf{v}_1 &amp; \bf{v}_2 &amp; \dots &amp; \bf{v}_n \end{bmatrix} \begin{bmatrix} \lambda_1 &amp; &amp; &amp; \\ &amp; \lambda_2 &amp; &amp;  \\ &amp; &amp; \ddots \\ &amp; &amp; &amp; \lambda_n \end{bmatrix}\]</span></p>
+<p><span class="math inline">\(\bf{V} = [\bf{v}_1 \bf{v}_2 \dots \bf{v}_n]\)</span> 이라고 하자. 그러면 <span class="math inline">\(\bf{V}\)</span> 가 가역행렬(invertible matrix)임은 자명하다. 행렬<span class="math inline">\(\bf{A}\)</span>의 고유분해(eigendecomposition)는 다음과 같다.</p>
+<p><span class="math display">\[\bf{A} = \bf{V}diag(\lambda)\bf{V}^{-1}\]</span></p>
+<p>다음과 같은 형태로도 표현할 수 있다.</p>
+<p><span class="math display">\[\bf{A} = \sum_{i=1}^n \lambda_i \bf{v}_i \bf{v}_i^\top\]</span></p>
+<p>행렬이 일차독립인 고유벡터 <span class="math inline">\(n\)</span>를 갖고 있지 않을 수도 있기 때문에 모든 정사각행렬이 대각화가 가능한 것은 아니다. 모든 real symmetric matrix는 고유분해(eigendecomposition)가 가능하다.</p>
+</section>
+<section id="singular-value-decomposition" class="level2">
+<h2 class="anchored" data-anchor-id="singular-value-decomposition">2.1.3 Singular Value Decomposition</h2>
+<p>고유분해는 특정 행렬에만 적용 가능하기 때문에 모든 행렬에 적용할 수 있는 특잇값 분해를 소개한다.</p>
+<p><span class="math display">\[\bf{A} = U\Sigma V^\top\]</span></p>
+<p><span class="math inline">\(\bf{U}\)</span>의 열벡터(column vector)는 <span class="math inline">\(\bf{A}\bf{A}^\top\)</span> 의 고유벡터이고, <span class="math inline">\(\bf{A}^\top \bf{A}\)</span>의 고유벡터는 <span class="math inline">\(\bf{V}\)</span>의 열벡터로 만들어진다.</p>
 
 
 </section>
