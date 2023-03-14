@@ -446,6 +446,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <ul id="quarto-sidebar-section-10" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../study/2023-03-14-eigenvalue.html" class="sidebar-item-text sidebar-link">eigenvalue &amp; eigenvector</a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../study/2023-03-14-pca.html" class="sidebar-item-text sidebar-link">PCA</a>
   </div>
 </li>
@@ -460,7 +465,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link active" data-scroll-target="#linear-algebra">2.1 Linear Algebra</a></li>
+  <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link active" data-scroll-target="#linear-algebra">2.1 Linear Algebra</a>
+  <ul class="collapse">
   <li><a href="#basic-concepts" id="toc-basic-concepts" class="nav-link" data-scroll-target="#basic-concepts">2.1.1 Basic Concepts</a>
   <ul class="collapse">
   <li><a href="#determinant" id="toc-determinant" class="nav-link" data-scroll-target="#determinant">Determinant</a></li>
@@ -468,6 +474,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   </ul></li>
   <li><a href="#eigendecomposition" id="toc-eigendecomposition" class="nav-link" data-scroll-target="#eigendecomposition">2.1.2 Eigendecomposition</a></li>
   <li><a href="#singular-value-decomposition-svd" id="toc-singular-value-decomposition-svd" class="nav-link" data-scroll-target="#singular-value-decomposition-svd">2.1.3 Singular Value Decomposition (SVD)</a></li>
+  </ul></li>
+  <li><a href="#probability-theory" id="toc-probability-theory" class="nav-link" data-scroll-target="#probability-theory">2.2 Probability Theory</a></li>
+  <li><a href="#graph-theory" id="toc-graph-theory" class="nav-link" data-scroll-target="#graph-theory">2.3 Graph Theory</a>
+  <ul class="collapse">
+  <li><a href="#basic-concepts-1" id="toc-basic-concepts-1" class="nav-link" data-scroll-target="#basic-concepts-1">2.3.1 Basic Concepts</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -477,9 +489,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 
 
-<section id="linear-algebra" class="level2">
-<h2 class="anchored" data-anchor-id="linear-algebra">2.1 Linear Algebra</h2>
-</section>
+<section id="linear-algebra" class="level1">
+<h1>2.1 Linear Algebra</h1>
 <section id="basic-concepts" class="level2">
 <h2 class="anchored" data-anchor-id="basic-concepts">2.1.1 Basic Concepts</h2>
 <p><code>-</code> Scalar: A number</p>
@@ -623,11 +634,36 @@ a_{31}b_{31} &amp; a_{32}b_{32} &amp; a_{33}b_{33} \\
 </section>
 <section id="singular-value-decomposition-svd" class="level2">
 <h2 class="anchored" data-anchor-id="singular-value-decomposition-svd">2.1.3 Singular Value Decomposition (SVD)</h2>
+<ul>
+<li>ref: https://numpy.org/doc/stable/reference/generated/numpy.linalg.svd.html</li>
+</ul>
 <p>고유분해는 특정 행렬(정사각행렬)에만 적용 가능하기 때문에 모든 행렬에 적용할 수 있는 특잇값 분해를 소개한다.</p>
+<p>먼저 특잇값(singular value)의 개념에 대해 얘기해보자. <span class="math inline">\(r\)</span>이 <span class="math inline">\(\bf{A}\bf{A}^\top\)</span> 의 차수일 떄 <span class="math inline">\(1\leq i \leq r\)</span>에 대해 <span class="math inline">\(\bf{v}_i\)</span>는 <span class="math inline">\(\sigma_i^2\)</span>에 대응하는 <span class="math inline">\(\bf{A}^\top \bf{A}\)</span>의 고유벡터임을 만족하는 <span class="math inline">\(r\)</span>개의 양수 <span class="math inline">\(\sigma_1 \geq \sigma_2 \geq \dots \geq \sigma_r &gt; 0\)</span>가 존재한다. 참고로 <span class="math inline">\(\bf{v}_1, \bf{v}_2, \dots, \bf{v}_r\)</span>은 일차독립이다.</p>
+<p>이런 <span class="math inline">\(r\)</span>개의 양수 <span class="math inline">\(\sigma_1, \sigma_2, \dots, \sigma_r\)</span>을 <span class="math inline">\(\bf{A}\)</span>의 특잇값이라고 부른다. 이때 특잇값 분해는 다음과 같이 정의된다.</p>
 <p><span class="math display">\[\bf{A} = U\Sigma V^\top\]</span></p>
-<p><span class="math inline">\(\bf{U}\)</span>의 열벡터(column vector)는 <span class="math inline">\(\bf{A}\bf{A}^\top\)</span> 의 고유벡터이고, <span class="math inline">\(\bf{A}^\top \bf{A}\)</span>의 고유벡터는 <span class="math inline">\(\bf{V}\)</span>의 열벡터로 만들어진다.</p>
+<p>여기서 <span class="math inline">\(\bf{U} \in \mathbb{R}^{m \times n}\)</span>, <span class="math inline">\(\bf{V}\)</span>는 <span class="math inline">\(n \times n\)</span> 직교행렬(orhodgonal matrix), <span class="math inline">\(\Sigma\)</span>는 다음과 같이 정의된 <span class="math inline">\(m\times n\)</span> 행렬이다.</p>
+<p><span class="math display">\[\Sigma_{ij} =
+\begin{cases}
+\sigma_i &amp; i=j\leq r \\
+0 &amp; otherwise.
+\end{cases}\]</span></p>
+<p><span class="math inline">\(\bf{U}\)</span>의 열벡터(column vector)는 <span class="math inline">\(\bf{A}\bf{A}^\top\)</span> 의 고유벡터(eigenvector)이고, <span class="math inline">\(\bf{A}^\top \bf{A}\)</span>의 고유벡터는 <span class="math inline">\(\bf{V}\)</span>의 열벡터로 만들어진다.</p>
+</section>
+</section>
+<section id="probability-theory" class="level1">
+<h1>2.2 Probability Theory</h1>
+</section>
+<section id="graph-theory" class="level1">
+<h1>2.3 Graph Theory</h1>
+<p>Graphs are the basic subjects in the study of GNNs. Therefore, to get a comprehensive understanding of GNN, the fundamental graph theory is required</p>
+<section id="basic-concepts-1" class="level2">
+<h2 class="anchored" data-anchor-id="basic-concepts-1">2.3.1 Basic Concepts</h2>
+<p>그래프는 <span class="math inline">\(G = (V, E)\)</span>로 나타내며, <span class="math inline">\(V\)</span>는 <strong>vertices</strong>의 집합, <span class="math inline">\(E\)</span>는 <strong>edges</strong>의 집합이다.</p>
+<p>edge <span class="math inline">\(e=u,v\)</span>는 두 끝점(endpoint) <span class="math inline">\(u\)</span>와 <span class="math inline">\(v\)</span>를 가지며 <span class="math inline">\(e\)</span>에 의해 연결(join)된다. 이 경우 <span class="math inline">\(u\)</span>는 <span class="math inline">\(v\)</span>의 <strong>이웃(neighbor)</strong>이라고 말하고 두 vertices는 <strong>adjacent(인접하다)</strong> 고 말한다.</p>
+<p>edge는 방향이 있을수도 있고 없을 수도 있다. 그래프에 속한 모든 에지의 방향이 있는 경우 <strong>directed graph</strong>라고 말하고, 없는 경우에는 <strong>undirected graph</strong>라고 말한다.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
